@@ -18,6 +18,8 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
+        
         /*
          => Bundle.main: Accesses the main bundle of the application,
                       which contains all the resources bundled with the app.
@@ -71,6 +73,37 @@ class ViewController: UITableViewController {
         
         // returns the configured cell to be displayed.
         return cell
+    }
+    
+    @objc func  promptForAnswer() {
+        let ac = UIAlertController(title: "Enter Answer", message: nil, preferredStyle: .alert)
+
+        // allowing the user to input text to the allert controller, we make it default.
+        ac.addTextField()
+        
+        // we use weak on self and ac, because both the allert controller, and the view controller are Reference inside our closure.
+        // UIAlertAction: An action that can be taken when the user taps a button in an alert.
+        /*
+         weak self: Creates a weak reference to the current view controller instance (self).
+         weak ac: Creates a weak reference to the UIAlertController instance (ac).
+         */
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [weak self, weak ac] action in
+            // here we can try and read it out in index[0], it's the first text field in our allert controller text.
+            // guard let answer = ac?.textFields?[0].text else { return }: Safely unwraps the text entered in the text field of the alert.
+            // Using ac? checks if the UIAlertController still exists (is not deallocated).
+            guard let answer = ac?.textFields?[0].text else { return }
+
+            // Calls the submit(_:) method of the current view controller instance (self) with the entered answer.
+            // Using self? ensures that self (the view controller) might be deallocated at the time this closure is executed, preventing a potential crash.
+            self?.submit(answer)
+        }
+        // adds action to the allert controller.
+        ac.addAction(submitAction)
+        present(ac, animated:  true)
+    }
+    
+    func submit(_ answer: String) {
+        
     }
 
 }
