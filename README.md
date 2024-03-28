@@ -1,6 +1,6 @@
 # UIKit
 
-![Swift Logo](https://cdn-icons-png.flaticon.com/256/919/919833.png)
+![UIKit Logo](https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/349_Uikit-512.png)
 
 # Capture lists come before a closure’s parameter list in your code, and capture values from the environment as either strong, weak, or unowned. We use them a lot, mainly to avoid strong reference cycles – aka retain cycles.
 
